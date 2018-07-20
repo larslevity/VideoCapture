@@ -2,7 +2,7 @@
 import picamera
 
 class Camera(object):
-    def __init__(self, resolution=(640, 640)):
+    def __init__(self, resolution=(1024, 1024)):
         self.camera = picamera.PiCamera()
         self.camera.resolution = resolution
         self.camera.start_preview()
@@ -11,7 +11,7 @@ class Camera(object):
 	self.camera.capture(filename)
 
 
-cam = camera.Camera()
+cam = Camera()
 
 filename = 'image.jpg'
 

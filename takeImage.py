@@ -1,18 +1,11 @@
 
+
+import time
 import picamera
 
-class Camera(object):
-    def __init__(self, resolution=(1024, 1024)):
-        self.camera = picamera.PiCamera()
-        self.camera.resolution = resolution
-        self.camera.start_preview()
-
-    def save_img(self, filename):
-	self.camera.capture(filename)
-
-
-cam = Camera()
-
-filename = 'image.jpg'
-
-cam.save_img(filename)
+with picamera.PiCamera() as camera:
+    camera.resolution = (2048, 2048)
+    camera.start_preview()
+    # Camera warm-up time
+    time.sleep(1)
+    camera.capture('image.jpg')

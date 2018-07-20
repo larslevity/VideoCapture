@@ -45,6 +45,7 @@ class ClientSocket(object):
             print 'transmission failed'
 
     def close(self):
+        self.client_socket.sendall('Exit')
         self.connection.close()
         self.client_socket.close()
 
@@ -52,6 +53,6 @@ class ClientSocket(object):
 if __name__ == "__main__":
     sock = ClientSocket()
     for foo in range(3):
-        sock.get_image()
+        sock.get_image('image{}'.format(foo))
         time.sleep(2)
     sock.close()

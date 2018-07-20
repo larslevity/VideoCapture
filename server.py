@@ -45,7 +45,7 @@ try:
             connection.write(stream.read())
             # If we've been capturing for more than 30 seconds, quit
             task = conn.recv(4096)
-            if task != 'makeImage':
+            if task == 'Exit':
                 break
             # Reset the stream for the next capture
             stream.seek(0)

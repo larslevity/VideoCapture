@@ -32,7 +32,7 @@ try:
         # temporarily (we could write it directly to connection but in this
         # case we want to find out the size of each capture first to keep
         # our protocol simple)
-        start = time.time()
+
         stream = io.BytesIO()
         for foo in camera.capture_continuous(stream, 'jpeg'):
             # Write the length of the capture to the stream and flush to
@@ -43,7 +43,8 @@ try:
             stream.seek(0)
             connection.write(stream.read())
             # If we've been capturing for more than 30 seconds, quit
-            if time.time() - start > 30:
+            task = connection.recv(4096)
+            if task != 'makeImage':
                 break
             # Reset the stream for the next capture
             stream.seek(0)

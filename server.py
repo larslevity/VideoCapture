@@ -19,7 +19,8 @@ server_socket.bind(('0.0.0.0', 8000))
 server_socket.listen(0)
 
 # Accept a single connection and make a file-like object out of it
-connection = server_socket.accept()[0].makefile('rb')
+conn = server_socket.accept()[0]
+connection = conn.makefile('rb')
 
 try:
     with picamera.PiCamera() as camera:
@@ -43,7 +44,7 @@ try:
             stream.seek(0)
             connection.write(stream.read())
             # If we've been capturing for more than 30 seconds, quit
-            task = connection.recv(4096)
+            task = conn.recv(4096)
             if task != 'makeImage':
                 break
             # Reset the stream for the next capture
